@@ -1,34 +1,62 @@
-
 #include <iostream>
 #include <vector>
-#include "../algorithm/binarySearch.cpp"
+#include <string>
+#include "../models/step.h"
 
 using namespace std;
 
-int main() {
-    vector<int> arr = {2, 4, 6, 8, 10, 12, 14};
-    int target = 10;
+// Helper to convert vector to string state
+string binaryArrayToString(const vector<int>& arr) {
+    string s = "[";
+    for (size_t i = 0; i < arr.size(); i++) {
+        s += to_string(arr[i]);
+        if (i < arr.size() - 1) s += ", ";
+    }
+    s += "]";
+    return s;
+}
 
-    vector<Step> steps = binarySearch(arr, target);
+vector<Step> binarySearch(vector<int> arr, int target) {
+    vector<Step> steps;
+    int low = 0;
+    int high = arr.size() - 1;
 
-    for (int i = 0; i < steps.size(); i++) {
-        cout << "\nStep " << i + 1 << endl;
-        cout << "Data Structure: "
-             << steps[i].dataStructure << endl;
-        cout << "Action: "
-             << steps[i].action << endl;
-        cout << "State: "
-             << steps[i].state << endl;
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
 
-        cout << "Affected: ";
-        for (const string& item : steps[i].affected) {
-            cout << item << " ";
+        Step compareStep;
+        compareStep.dataStructure = "Array";
+        compareStep.action = "compare";
+        compareStep.state = binaryArrayToString(arr);
+        compareStep.message = "Checking middle element " + to_string(arr[mid]) + " at index " + to_string(mid);
+        compareStep.affected = {to_string(low), to_string(mid), to_string(high)};
+        steps.push_back(compareStep);
+
+        if (arr[mid] == target) {
+            Step foundStep;
+            foundStep.dataStructure = "Array";
+            foundStep.action = "found";
+            foundStep.state = binaryArrayToString(arr);
+            foundStep.message = "Found target " + to_string(target) + " at index " + to_string(mid);
+            foundStep.affected = {to_string(mid)};
+            steps.push_back(foundStep);
+            return steps;
+        } 
+        else if (arr[mid] < target) {
+            low = mid + 1;
+        } 
+        else {
+            high = mid - 1;
         }
-        cout << endl;
-
-        cout << "Message: "
-             << steps[i].message << endl;
     }
 
-    return 0;
+    Step notFoundStep;
+    notFoundStep.dataStructure = "Array";
+    notFoundStep.action = "not_found";
+    notFoundStep.state = binaryArrayToString(arr);
+    notFoundStep.message = "Target not found in array";
+    notFoundStep.affected = {};
+    steps.push_back(notFoundStep);
+
+    return steps;
 }
