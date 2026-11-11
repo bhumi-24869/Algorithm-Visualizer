@@ -68,7 +68,7 @@ int main() {
     cout << "Enter size of array: ";
     cin >> n;
 
-    vector<int> arr(n);g++ selectionsorttest.cpp -o selectionsort_test
+    vector<int> arr(n);
     cout << "Enter " << n << " elements: ";
     for (int i = 0; i < n; i++) {
         cin >> arr[i];
