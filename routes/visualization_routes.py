@@ -1,18 +1,17 @@
 from flask import Blueprint, request, jsonify
 from Database.db import db
+from datetime import datetime, timezone
 
 visualization_bp = Blueprint("visualization", __name__)
 history_collection = db["visualization_history"]
 
-# POST: Receive visualization input
+
 @visualization_bp.route("/visualize", methods=["POST"])
 def visualize():
     data = request.get_json(silent=True)
 
     if not data:
-        return jsonify({
-            "error": "JSON data is required"
-        }), 400
+        return jsonify({"error": "JSON data is required"}), 400
 
     algorithm_name = data.get("algorithm_name")
     input_data = data.get("input_data")
@@ -22,11 +21,11 @@ def visualize():
             "error": "Algorithm name and input data are required"
         }), 400
 
-    # Store the request in MongoDB
     visualization = {
         "algorithm_name": algorithm_name,
         "input_data": input_data,
-        "status": "pending"
+        "status": "pending",
+        "created_at": datetime.now(timezone.utc)
     }
 
     result = history_collection.insert_one(visualization)

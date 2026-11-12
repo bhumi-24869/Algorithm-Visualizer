@@ -2,24 +2,38 @@ from flask import Blueprint, jsonify
 from Database.db import db
 from bson import ObjectId
 from bson.errors import InvalidId
+from datetime import timezone
 
 history_bp = Blueprint("history", __name__)
 history_collection = db["visualization_history"]
 
-# GET: Fetch all execution history
+def format_history_record(record):
+    record["_id"] = str(record["_id"])
+    created_at = record.get("created_at")
+
+    if created_at is not None:
+        # Ensure the timestamp has UTC timezone information
+        if created_at.tzinfo is None:
+            created_at = created_at.replace(tzinfo=timezone.utc)
+
+        record["created_at"] = created_at.isoformat()
+
+    return record
+
 @history_bp.route("/history", methods=["GET"])
 def get_history():
     history = list(
         history_collection.find().sort("_id", -1)
     )
 
-    for record in history:
-        record["_id"] = str(record["_id"])
+    history = [
+        format_history_record(record)
+        for record in history
+    ]
 
     return jsonify(history), 200
 
 
-# GET: Fetch one history record by ID
 @history_bp.route("/history/<history_id>", methods=["GET"])
 def get_history_by_id(history_id):
     try:
@@ -28,15 +42,11 @@ def get_history_by_id(history_id):
         })
 
     except InvalidId:
-        return jsonify({
-            "error": "Invalid history ID"
-        }), 400
+        return jsonify({"error": "Invalid history ID"}), 400
 
     if record is None:
-        return jsonify({
-            "error": "History record not found"
-        }), 404
+        return jsonify({"error": "History record not found"}), 404
 
-    record["_id"] = str(record["_id"])
+    record = format_history_record(record)
 
     return jsonify(record), 200
