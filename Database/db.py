@@ -10,10 +10,26 @@ client = MongoClient(
 
 db = client["algorithm_visualizer"]
 
+algorithms_collection = db["algorithms"]
+history_collection = db["visualization_history"]
+
 def check_connection():
     try:
         client.admin.command("ping")
         return True
+
     except Exception as e:
         print("MongoDB connection failed:", e)
         return False
+
+
+def create_indexes():
+    algorithms_collection.create_index("name")
+
+    algorithms_collection.create_index("category")
+
+    history_collection.create_index(
+        [("created_at", -1)]
+    )
+
+    print("MongoDB indexes created successfully!")
