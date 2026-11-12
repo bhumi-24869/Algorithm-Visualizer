@@ -1,0 +1,62 @@
+
+/* Reset default browser spacing */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Common body styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #0B1020;
+    color: #FFFFFF;
+    line-height: 1.6;
+}
+
+/* Header */
+header {
+    background-color: #151D32;
+    padding: 20px 50px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    border-bottom: 1px solid #293550;
+}
+
+/* Website title */
+header h2 {
+    color: #8B5CF6;
+    font-size: 24px;
+}
+
+/* Navigation */
+nav {
+    display: flex;
+    gap: 25px;
+}
+
+/* Navigation links */
+nav a {
+    color: #CBD5E1;
+    text-decoration: none;
+    font-size: 15px;
+    transition: color 0.3s;
+}
+
+/* When mouse moves over a link */
+nav a:hover {
+    color: #8B5CF6;
+}
+
+/* Footer */
+footer {
+    background-color: #151D32;
+    text-align: center;
+    padding: 20px;
+    margin-top: 60px;
+    color: #94A3B8;
+    border-top: 1px solid #293550;
+}

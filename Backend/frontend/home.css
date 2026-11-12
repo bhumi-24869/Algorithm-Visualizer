@@ -1,0 +1,110 @@
+
+/* Hero Section */
+.hero {
+    text-align: center;
+    padding: 100px 20px;
+}
+
+.hero h1 {
+    font-size: 48px;
+    color: #FFFFFF;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 18px;
+    color: #94A3B8;
+    max-width: 650px;
+    margin: auto;
+}
+
+
+/* Categories Section */
+.categories {
+    padding: 50px;
+    text-align: center;
+}
+
+.categories h2 {
+    font-size: 32px;
+    margin-bottom: 35px;
+    color: #8B5CF6;
+}
+
+/* Container holding all cards */
+.category-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+}
+
+/* Individual category card */
+.category-card {
+    background-color: #151D32;
+    padding: 30px 20px;
+    border: 1px solid #293550;
+    border-radius: 12px;
+
+    transition: transform 0.3s, border-color 0.3s;
+}
+
+.category-card:hover {
+    transform: translateY(-8px);
+    border-color: #8B5CF6;
+}
+
+.category-card h3 {
+    color: #38BDF8;
+    margin-bottom: 15px;
+}
+
+.category-card p {
+    color: #94A3B8;
+    margin-bottom: 20px;
+}
+
+.category-card a {
+    display: inline-block;
+    background-color: #8B5CF6;
+    color: white;
+    text-decoration: none;
+    padding: 8px 20px;
+    border-radius: 6px;
+    transition: background-color 0.3s;
+}
+
+.category-card a:hover {
+    background-color: #6D28D9;
+}
+
+
+/* Performance Section */
+.performance {
+    margin: 60px 50px;
+    padding: 45px;
+    text-align: center;
+
+    background-color: #151D32;
+    border: 1px solid #293550;
+    border-radius: 12px;
+}
+
+.performance h2 {
+    color: #38BDF8;
+    font-size: 30px;
+    margin-bottom: 15px;
+}
+
+.performance p {
+    color: #94A3B8;
+    margin-bottom: 20px;
+}
+
+.performance a {
+    display: inline-block;
+    background-color: #8B5CF6;
+    color: white;
+    text-decoration: none;
+    padding: 10px 25px;
+    border-radius: 6px;
+}
