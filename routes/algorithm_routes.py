@@ -21,20 +21,37 @@ def get_algorithms():
 def add_algorithm():
     data = request.get_json(silent=True)
 
-    if not data:
-        return jsonify({"error": "JSON data is required"}), 400
+    if not isinstance(data, dict):
+        return jsonify({"error": "Valid JSON object is required"}), 400
 
     name = data.get("name")
     category = data.get("category")
 
-    if not name or not category:
+    if not isinstance(name, str) or not name.strip():
         return jsonify({
-            "error": "Name and category are required"
+            "error": "Name must be a non-empty string"
         }), 400
 
+    if not isinstance(category, str) or not category.strip():
+        return jsonify({
+            "error": "Category must be a non-empty string"
+        }), 400
+
+    optional_fields = [
+        "description",
+        "time_complexity",
+        "space_complexity"
+    ]
+
+    for field in optional_fields:
+        if field in data and not isinstance(data[field], str):
+            return jsonify({
+                "error": f"{field} must be a string"
+            }), 400
+
     algorithm = {
-        "name": name,
-        "category": category,
+        "name": name.strip(),
+        "category": category.strip(),
         "description": data.get("description", ""),
         "time_complexity": data.get("time_complexity", ""),
         "space_complexity": data.get("space_complexity", "")

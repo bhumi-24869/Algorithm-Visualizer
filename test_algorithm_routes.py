@@ -4,11 +4,8 @@ BASE_URL = "http://127.0.0.1:5000/api/algorithms"
 
 # TEST POST
 data = {
-    "name": "Linear Search",
-    "category": "Searching",
-    "description": "Searches elements one by one",
-    "time_complexity": "O(n)",
-    "space_complexity": "O(1)"
+    "algorithm_name": "Binary Search",
+    "input_data": "hello"
 }
 
 post_response = requests.post(BASE_URL, json=data)
