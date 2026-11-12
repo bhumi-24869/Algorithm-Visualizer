@@ -1,5 +1,11 @@
 from flask import Flask, jsonify
-from Database.db import db, check_connection, create_indexes
+
+from Database.db import (
+    db,
+    check_connection,
+    create_indexes
+)
+
 from routes.algorithm_routes import algorithm_bp
 from routes.visualization_routes import visualization_bp
 from routes.history_routes import history_bp
@@ -17,7 +23,7 @@ def home():
             "message": "Flask and MongoDB connected successfully!",
             "database": db.name,
             "status": "connected"
-        })
+        }), 200
 
     return jsonify({
         "message": "Database connection failed",

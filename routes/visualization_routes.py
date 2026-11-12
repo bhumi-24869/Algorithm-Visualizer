@@ -11,7 +11,9 @@ def visualize():
     data = request.get_json(silent=True)
 
     if not isinstance(data, dict):
-        return jsonify({"error": "Valid JSON object is required"}), 400
+        return jsonify({
+            "error": "Valid JSON object is required"
+        }), 400
 
     algorithm_name = data.get("algorithm_name")
     input_data = data.get("input_data")
@@ -21,7 +23,6 @@ def visualize():
             "error": "Algorithm name must be a non-empty string"
         }), 400
 
-    # Validate input data
     if not isinstance(input_data, dict):
         return jsonify({
             "error": "Input data must be a JSON object"

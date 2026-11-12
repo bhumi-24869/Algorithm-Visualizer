@@ -12,9 +12,11 @@ def format_history_record(record):
     created_at = record.get("created_at")
 
     if created_at is not None:
-        # Ensure the timestamp has UTC timezone information
+
         if created_at.tzinfo is None:
-            created_at = created_at.replace(tzinfo=timezone.utc)
+            created_at = created_at.replace(
+                tzinfo=timezone.utc
+            )
 
         record["created_at"] = created_at.isoformat()
 
@@ -23,7 +25,10 @@ def format_history_record(record):
 @history_bp.route("/history", methods=["GET"])
 def get_history():
     history = list(
-        history_collection.find().sort("_id", -1)
+        history_collection.find().sort([
+            ("created_at", -1),
+            ("_id", -1)
+        ])
     )
 
     history = [
@@ -42,10 +47,14 @@ def get_history_by_id(history_id):
         })
 
     except InvalidId:
-        return jsonify({"error": "Invalid history ID"}), 400
+        return jsonify({
+            "error": "Invalid history ID"
+        }), 400
 
     if record is None:
-        return jsonify({"error": "History record not found"}), 404
+        return jsonify({
+            "error": "History record not found"
+        }), 404
 
     record = format_history_record(record)
 
