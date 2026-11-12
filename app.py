@@ -2,11 +2,13 @@ from flask import Flask, jsonify
 from Database.db import db, check_connection
 from routes.algorithm_routes import algorithm_bp
 from routes.visualization_routes import visualization_bp
+from routes.history_routes import history_bp
 
 app = Flask(__name__)
 
 app.register_blueprint(algorithm_bp, url_prefix="/api")
 app.register_blueprint(visualization_bp, url_prefix="/api")
+app.register_blueprint(history_bp, url_prefix="/api")
 
 @app.route("/")
 def home():
