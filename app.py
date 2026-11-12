@@ -1,4 +1,5 @@
 from flask import Flask, jsonify
+from flask_cors import CORS
 
 from Database.db import (
     db,
@@ -11,6 +12,10 @@ from routes.visualization_routes import visualization_bp
 from routes.history_routes import history_bp
 
 app = Flask(__name__)
+
+CORS(app, resources={
+    r"/api/*": {"origins": "*"}
+})
 
 app.register_blueprint(algorithm_bp, url_prefix="/api")
 app.register_blueprint(visualization_bp, url_prefix="/api")
