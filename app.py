@@ -1,10 +1,12 @@
-
 from flask import Flask, jsonify
 from Database.db import db, check_connection
+from routes.algorithm_routes import algorithm_bp
 
 app = Flask(__name__)
 
-@app.route('/')
+app.register_blueprint(algorithm_bp, url_prefix="/api")
+
+@app.route("/")
 def home():
     if check_connection():
         return jsonify({
@@ -19,5 +21,5 @@ def home():
     }), 500
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run(debug=True)
