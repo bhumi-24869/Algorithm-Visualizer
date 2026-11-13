@@ -12,6 +12,7 @@ db = client["algorithm_visualizer"]
 
 algorithms_collection = db["algorithms"]
 history_collection = db["visualization_history"]
+users_collection = db["users"]
 
 def check_connection():
     try:
@@ -32,4 +33,8 @@ def create_indexes():
         [("created_at", -1)]
     )
 
+    users_collection.create_index(
+    "email",
+    unique=True
+    )
     print("MongoDB indexes created successfully!")
