@@ -1,0 +1,134 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AlgoVerse | Visualizer</title>
+
+    <!-- Existing homepage styles -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="home.css">
+
+    <!-- Visualization page styles -->
+    <link rel="stylesheet" href="visualizer.css">
+</head>
+
+<body>
+
+    <!-- Particle Background -->
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+
+        <div class="logo">
+            Algo<span>Verse</span>
+        </div>
+
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="index.html#algorithms">Algorithms</a>
+            <a href="login.html">Login</a>
+        </div>
+
+    </nav>
+
+    <main class="visualizer-container">
+
+        <!-- Heading -->
+        <section class="page-heading">
+
+            <p class="small-heading">ALGORITHM PLAYGROUND</p>
+
+            <h1 id="algorithmTitle">
+                Bubble Sort <span>Visualizer</span>
+            </h1>
+
+            <p id="algorithmDescription">
+                Explore how Bubble Sort works through
+                step-by-step visualization.
+            </p>
+
+        </section>
+
+        <!-- Input Configuration -->
+        <section class="input-panel">
+
+            <h2>Input Configuration</h2>
+
+            <label for="arrayInput">Enter Array Elements</label>
+
+            <input
+                type="text"
+                id="arrayInput"
+                placeholder="Example: 5, 2, 8, 1, 4"
+            >
+
+            <button id="visualizeBtn">
+                Visualize Algorithm
+            </button>
+
+        </section>
+
+        <!-- Visualization Area -->
+        <section class="visualization-panel">
+
+            <div class="panel-heading">
+
+                <h2>Visualization</h2>
+
+                <span id="status">Waiting to start...</span>
+
+            </div>
+
+            <div id="arrayContainer">
+                <!-- Bars will be created using JavaScript -->
+            </div>
+
+        </section>
+
+        <!-- Controls -->
+        <section class="control-panel">
+
+            <button id="previousBtn">Previous</button>
+
+            <button id="playBtn">Play</button>
+
+            <button id="nextBtn">Next</button>
+
+            <button id="resetBtn">Reset</button>
+
+        </section>
+
+        <!-- Step Explanation -->
+        <section class="step-panel">
+
+            <h2>Step Explanation</h2>
+
+            <p id="stepMessage">
+                Enter an array and click Visualize Algorithm
+                to begin.
+            </p>
+
+            <div class="step-counter">
+                Step: <span id="stepNumber">0</span>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 AlgoVerse | Explore. Learn. Visualize.</p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script type="module" src="js/main.js"></script>
+    <script src="js/visualizer.js"></script>
+
+</body>
+</html>

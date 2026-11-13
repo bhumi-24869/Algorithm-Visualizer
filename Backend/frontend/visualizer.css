@@ -1,0 +1,300 @@
+
+/* =========================
+   GENERAL PAGE
+========================= */
+
+html {
+    min-height: 100%;
+    background: #080b18;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: #080b18 !important;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+
+/* =========================
+   PARTICLE BACKGROUND
+========================= */
+
+#particle-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+
+/* Keep content above particles */
+
+.navbar,
+.visualizer-container,
+footer {
+    position: relative;
+    z-index: 1;
+}
+
+
+/* =========================
+   MAIN CONTAINER
+========================= */
+
+.visualizer-container {
+    width: 85%;
+    max-width: 1200px;
+    margin: 50px auto;
+}
+
+
+/* =========================
+   PAGE HEADING
+========================= */
+
+.visualizer-container .page-heading {
+    text-align: center;
+    margin-bottom: 40px;
+    background: transparent !important;
+    border: none;
+}
+
+.small-heading {
+    color: #a78bfa;
+    letter-spacing: 3px;
+    font-size: 12px;
+}
+
+.page-heading h1 {
+    font-size: 38px;
+    color: white;
+}
+
+.page-heading h1 span {
+    color: #a78bfa;
+}
+
+.page-heading p {
+    color: #a0a5bd;
+}
+
+
+/* =========================
+   PANELS
+========================= */
+
+.visualizer-container .input-panel,
+.visualizer-container .visualization-panel,
+.visualizer-container .step-panel {
+
+    background: rgba(17, 23, 43, 0.88) !important;
+
+    border: 1px solid rgba(167, 139, 250, 0.3);
+
+    border-radius: 15px;
+
+    padding: 25px;
+
+    margin-bottom: 25px;
+
+    backdrop-filter: blur(10px);
+
+    color: white;
+}
+
+
+/* Panel headings */
+
+.input-panel h2,
+.visualization-panel h2,
+.step-panel h2 {
+    color: white;
+}
+
+
+/* =========================
+   INPUT SECTION
+========================= */
+
+.input-panel label {
+    display: block;
+    margin: 15px 0 10px;
+    color: #c4c8dc;
+}
+
+.input-panel input {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 14px;
+
+    border-radius: 8px;
+    border: 1px solid #444d70;
+
+    background: #080b18;
+    color: white;
+
+    outline: none;
+}
+
+.input-panel input:focus {
+    border-color: #a78bfa;
+}
+
+
+/* =========================
+   BUTTONS
+========================= */
+
+.visualizer-container button {
+    padding: 12px 22px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: #7657e8;
+    color: white;
+
+    cursor: pointer;
+    margin: 10px 5px 0 0;
+
+    transition: 0.3s;
+}
+
+.visualizer-container button:hover {
+    background: #9479ff;
+    transform: translateY(-2px);
+}
+
+
+/* =========================
+   VISUALIZATION AREA
+========================= */
+
+.panel-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#status {
+    color: #a78bfa;
+    font-size: 14px;
+}
+
+#arrayContainer {
+
+    min-height: 250px;
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+
+    gap: 12px;
+
+    padding: 30px 10px;
+
+    border-radius: 10px;
+
+    background: transparent !important;
+
+    margin-top: 20px;
+
+    overflow-x: auto;
+}
+
+
+/* =========================
+   ARRAY BARS
+========================= */
+
+.bar {
+    min-width: 45px;
+
+    background: linear-gradient(
+        #a78bfa,
+        #6550d9
+    );
+
+    border-radius: 7px 7px 0 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+
+    padding-top: 8px;
+
+    color: white;
+    font-size: 13px;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================
+   CONTROLS
+========================= */
+
+.control-panel {
+    text-align: center;
+    margin: 25px 0;
+    background: transparent !important;
+}
+
+
+/* =========================
+   STEP EXPLANATION
+========================= */
+
+.step-panel p {
+    color: #b8bdd3;
+    line-height: 1.6;
+}
+
+.step-counter {
+    color: #a78bfa;
+    margin-top: 15px;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+    text-align: center;
+    padding: 20px;
+    color: #777f9e;
+    background: transparent !important;
+}
+
+
+/* =========================
+   RESPONSIVE DESIGN
+========================= */
+
+@media (max-width: 768px) {
+
+    .visualizer-container {
+        width: 92%;
+        margin: 30px auto;
+    }
+
+    .page-heading h1 {
+        font-size: 28px;
+    }
+
+    .panel-heading {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    #arrayContainer {
+        justify-content: flex-start;
+    }
+
+}
