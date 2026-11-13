@@ -4,10 +4,12 @@ from routes.algorithm_routes import algorithm_bp
 from routes.visualization_routes import visualization_bp
 from routes.history_routes import history_bp
 from routes.user_routes import user_bp
+from flask_cors import CORS
 
 import os
 
 app = Flask(__name__)
+CORS(app, supports_credentials=True)
 
 # Session configuration
 app.config["SECRET_KEY"] = os.environ.get(

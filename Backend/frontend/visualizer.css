@@ -1,7 +1,7 @@
 
-/* =========================
-   GENERAL PAGE
-========================= */
+/* ==========================================
+   1. GENERAL PAGE
+========================================== */
 
 html {
     min-height: 100%;
@@ -17,9 +17,9 @@ body {
 }
 
 
-/* =========================
-   PARTICLE BACKGROUND
-========================= */
+/* ==========================================
+   2. PARTICLE BACKGROUND
+========================================== */
 
 #particle-canvas {
     position: fixed;
@@ -31,9 +31,6 @@ body {
     pointer-events: none;
 }
 
-
-/* Keep content above particles */
-
 .navbar,
 .visualizer-container,
 footer {
@@ -42,9 +39,9 @@ footer {
 }
 
 
-/* =========================
-   MAIN CONTAINER
-========================= */
+/* ==========================================
+   3. MAIN CONTAINER
+========================================== */
 
 .visualizer-container {
     width: 85%;
@@ -53,9 +50,9 @@ footer {
 }
 
 
-/* =========================
-   PAGE HEADING
-========================= */
+/* ==========================================
+   4. PAGE HEADING
+========================================== */
 
 .visualizer-container .page-heading {
     text-align: center;
@@ -68,6 +65,7 @@ footer {
     color: #a78bfa;
     letter-spacing: 3px;
     font-size: 12px;
+    font-weight: bold;
 }
 
 .page-heading h1 {
@@ -81,12 +79,13 @@ footer {
 
 .page-heading p {
     color: #a0a5bd;
+    line-height: 1.6;
 }
 
 
-/* =========================
-   PANELS
-========================= */
+/* ==========================================
+   5. PANELS
+========================================== */
 
 .visualizer-container .input-panel,
 .visualizer-container .visualization-panel,
@@ -105,10 +104,10 @@ footer {
     backdrop-filter: blur(10px);
 
     color: white;
+
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+
 }
-
-
-/* Panel headings */
 
 .input-panel h2,
 .visualization-panel h2,
@@ -117,9 +116,9 @@ footer {
 }
 
 
-/* =========================
-   INPUT SECTION
-========================= */
+/* ==========================================
+   6. INPUT SECTION
+========================================== */
 
 .input-panel label {
     display: block;
@@ -128,173 +127,344 @@ footer {
 }
 
 .input-panel input {
+
     box-sizing: border-box;
+
     width: 100%;
+
     padding: 14px;
 
     border-radius: 8px;
+
     border: 1px solid #444d70;
 
     background: #080b18;
+
     color: white;
 
     outline: none;
+
+    font-size: 15px;
+
 }
 
 .input-panel input:focus {
     border-color: #a78bfa;
+    box-shadow: 0 0 12px rgba(167, 139, 250, 0.2);
+}
+
+.input-panel input::placeholder {
+    color: #777f9e;
 }
 
 
-/* =========================
-   BUTTONS
-========================= */
+/* ==========================================
+   7. BUTTONS
+========================================== */
 
 .visualizer-container button {
+
     padding: 12px 22px;
 
     border: none;
+
     border-radius: 8px;
 
-    background: #7657e8;
+    background: linear-gradient(135deg, #7657e8, #5b43c6);
+
     color: white;
 
     cursor: pointer;
+
     margin: 10px 5px 0 0;
 
-    transition: 0.3s;
+    font-size: 14px;
+
+    font-weight: bold;
+
+    transition: all 0.3s ease;
+
 }
 
-.visualizer-container button:hover {
-    background: #9479ff;
+.visualizer-container button:hover:not(:disabled) {
+
+    background: linear-gradient(135deg, #9479ff, #7657e8);
+
     transform: translateY(-2px);
+
+    box-shadow: 0 5px 15px rgba(118, 87, 232, 0.35);
+
+}
+
+.visualizer-container button:disabled {
+
+    opacity: 0.4;
+
+    cursor: not-allowed;
+
+    transform: none;
+
 }
 
 
-/* =========================
-   VISUALIZATION AREA
-========================= */
+/* ==========================================
+   8. VISUALIZATION PANEL
+========================================== */
 
 .panel-heading {
+
     display: flex;
+
     justify-content: space-between;
+
     align-items: center;
+
+    gap: 15px;
+
 }
 
 #status {
+
     color: #a78bfa;
+
     font-size: 14px;
+
+    font-weight: bold;
+
 }
+
+
+/* ==========================================
+   9. ARRAY VISUALIZATION AREA
+========================================== */
 
 #arrayContainer {
 
-    min-height: 250px;
+    min-height: 300px;
 
     display: flex;
+
     justify-content: center;
+
     align-items: flex-end;
 
     gap: 12px;
 
-    padding: 30px 10px;
+    padding: 35px 15px 10px;
 
-    border-radius: 10px;
+    border-radius: 12px;
 
-    background: transparent !important;
+    background: rgba(8, 11, 24, 0.45);
 
     margin-top: 20px;
 
     overflow-x: auto;
+
 }
 
 
-/* =========================
-   ARRAY BARS
-========================= */
+/* ==========================================
+   10. BAR WRAPPER
+========================================== */
 
-.bar {
+.bar-wrapper {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: flex-end;
+
     min-width: 45px;
 
+}
+
+
+/* ==========================================
+   11. NORMAL ARRAY BARS
+========================================== */
+
+.bar {
+
+    width: 45px;
+
     background: linear-gradient(
-        #a78bfa,
-        #6550d9
+        180deg,
+        #c4b5fd,
+        #8b5cf6,
+        #5b21b6
     );
 
     border-radius: 7px 7px 0 0;
 
     display: flex;
+
     justify-content: center;
+
     align-items: flex-start;
 
     padding-top: 8px;
 
     color: white;
+
     font-size: 13px;
 
+    font-weight: bold;
+
     box-sizing: border-box;
+
+    box-shadow: 0 0 12px rgba(139, 92, 246, 0.3);
+
+    transition:
+        height 0.35s ease,
+        background 0.3s ease,
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+
 }
 
 
-/* =========================
-   CONTROLS
-========================= */
+/* ==========================================
+   12. ACTIVE BARS
+========================================== */
+
+.bar.active {
+
+    background: linear-gradient(
+        180deg,
+        #fde68a,
+        #f59e0b,
+        #d97706
+    );
+
+    box-shadow: 0 0 20px rgba(245, 158, 11, 0.6);
+
+    transform: translateY(-5px);
+
+}
+
+
+/* ==========================================
+   13. ARRAY INDEX
+========================================== */
+
+.bar-index {
+
+    color: #9ca3af;
+
+    font-size: 12px;
+
+    margin-top: 10px;
+
+}
+
+
+/* ==========================================
+   14. CONTROL PANEL
+========================================== */
 
 .control-panel {
+
     text-align: center;
+
     margin: 25px 0;
+
     background: transparent !important;
+
 }
 
 
-/* =========================
-   STEP EXPLANATION
-========================= */
+/* ==========================================
+   15. STEP EXPLANATION
+========================================== */
 
 .step-panel p {
+
     color: #b8bdd3;
-    line-height: 1.6;
+
+    line-height: 1.7;
+
+    font-size: 15px;
+
 }
 
 .step-counter {
+
     color: #a78bfa;
+
     margin-top: 15px;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
 }
 
 
-/* =========================
-   FOOTER
-========================= */
+/* ==========================================
+   16. FOOTER
+========================================== */
 
 footer {
+
     text-align: center;
+
     padding: 20px;
+
     color: #777f9e;
+
     background: transparent !important;
+
 }
 
 
-/* =========================
-   RESPONSIVE DESIGN
-========================= */
+/* ==========================================
+   17. RESPONSIVE DESIGN
+========================================== */
 
 @media (max-width: 768px) {
 
     .visualizer-container {
+
         width: 92%;
+
         margin: 30px auto;
+
     }
 
     .page-heading h1 {
+
         font-size: 28px;
+
     }
 
     .panel-heading {
+
         flex-direction: column;
+
         align-items: flex-start;
+
     }
 
     #arrayContainer {
+
         justify-content: flex-start;
+
+    }
+
+    .bar-wrapper {
+
+        min-width: 38px;
+
+    }
+
+    .bar {
+
+        width: 38px;
+
     }
 
 }
+
