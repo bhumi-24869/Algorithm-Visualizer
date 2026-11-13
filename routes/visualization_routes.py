@@ -24,8 +24,8 @@ def execute_cpp(algorithm, input_data):
         "Merge Sort": "mergeSort",
         "Quick Sort": "quickSort",
         "Selection Sort": "selectionSort",
-        "Tower of Hanoi": "tower"
-    }
+        "Tower of Hanoi": "towerOfHanoi"
+        }
 
     if algorithm not in algorithm_map:
         raise ValueError("Unsupported algorithm")
@@ -87,6 +87,8 @@ def execute_cpp(algorithm, input_data):
 
     if result.returncode != 0:
         print("C++ Error:", result.stderr)
+        print("C++ Output:", result.stdout)
+        print("Return Code:", result.returncode)
         raise RuntimeError("C++ algorithm execution failed")
 
     output = json.loads(result.stdout)
@@ -168,8 +170,10 @@ def visualize():
             "error": "Algorithm execution timed out"
         }), 504
 
-    except (RuntimeError, json.JSONDecodeError, KeyError) as e:
-        print("Execution error:", e)
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+
         return jsonify({
-            "error": "Algorithm execution failed"
+            "error": str(e)
         }), 500
