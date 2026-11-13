@@ -7,7 +7,7 @@
 
 using namespace std;
 
-string arrayToString(const vector<int>& arr) {
+string lineararrayToString(const vector<int>& arr) {
     stringstream ss;
     ss << "[";
 
@@ -31,7 +31,7 @@ vector<Step> linearSearch(vector<int> arr, int target) {
 
         s.dataStructure = "Array";
         s.action = "compare";
-        s.state = arrayToString(arr);
+        s.state = lineararrayToString(arr);
         s.affected = {
             to_string(arr[i]),
             to_string(target)
@@ -46,7 +46,7 @@ vector<Step> linearSearch(vector<int> arr, int target) {
 
             found.dataStructure = "Array";
             found.action = "found";
-            found.state = arrayToString(arr);
+            found.state = lineararrayToString(arr);
             found.affected = {to_string(target)};
             found.message = "Target found at index "
                             + to_string(i);
@@ -60,7 +60,7 @@ vector<Step> linearSearch(vector<int> arr, int target) {
 
     notFound.dataStructure = "Array";
     notFound.action = "not_found";
-    notFound.state = arrayToString(arr);
+    notFound.state = lineararrayToString(arr);
     notFound.affected = {to_string(target)};
     notFound.message = "Target not found in the array";
 

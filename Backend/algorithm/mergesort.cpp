@@ -92,26 +92,3 @@ vector<Step> mergeSort(vector<int> arr) {
 
     return steps;
 }
-
-int main() {
-    int n;
-    cout << "Enter size of array: ";
-    cin >> n;
-
-    vector<int> arr(n);
-    cout << "Enter " << n << " elements: ";
-    for (int i = 0; i < n; i++) {
-        cin >> arr[i];
-    }
-
-    vector<Step> steps = mergeSort(arr);
-
-    for (size_t i = 0; i < steps.size(); i++) {
-        cout << "\nStep " << i + 1 << endl;
-        cout << "Action: " << steps[i].action << endl;
-        cout << "State: " << steps[i].state << endl;
-        cout << "Message: " << steps[i].message << endl;
-    }
-
-    return 0;
-}

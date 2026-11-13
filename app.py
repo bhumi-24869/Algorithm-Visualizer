@@ -1,25 +1,28 @@
-from flask import Flask, jsonify
-from flask_cors import CORS
-
-from Database.db import (
-    db,
-    check_connection,
-    create_indexes
-)
-
+from flask import Flask, jsonify, session
+from Database.db import db, check_connection, create_indexes
 from routes.algorithm_routes import algorithm_bp
 from routes.visualization_routes import visualization_bp
 from routes.history_routes import history_bp
+from routes.user_routes import user_bp
+
+import os
 
 app = Flask(__name__)
 
-CORS(app, resources={
-    r"/api/*": {"origins": "*"}
-})
+# Session configuration
+app.config["SECRET_KEY"] = os.environ.get(
+    "FLASK_SECRET_KEY",
+    "development-secret-change-before-deployment"
+)
 
+app.config["SESSION_COOKIE_HTTPONLY"] = True
+app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
+
+# Register routes
 app.register_blueprint(algorithm_bp, url_prefix="/api")
 app.register_blueprint(visualization_bp, url_prefix="/api")
 app.register_blueprint(history_bp, url_prefix="/api")
+app.register_blueprint(user_bp, url_prefix="/api")
 
 @app.route("/")
 def home():
@@ -31,8 +34,7 @@ def home():
         }), 200
 
     return jsonify({
-        "message": "Database connection failed",
-        "status": "disconnected"
+        "message": "Database connection failed"
     }), 500
 
 
