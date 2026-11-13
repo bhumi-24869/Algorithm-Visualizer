@@ -1,0 +1,138 @@
+
+/* Sorting Hero Section */
+
+.sorting-hero {
+    text-align: center;
+    padding: 100px 20px 60px;
+}
+
+.sorting-hero h1 {
+    font-size: 3rem;
+    margin: 15px 0;
+    color: #ffffff;
+}
+
+.sorting-hero h1 span {
+    color: #a78bfa;
+}
+
+.sorting-hero p:last-child {
+    color: #aab0c5;
+    max-width: 650px;
+    margin: 15px auto;
+    line-height: 1.7;
+}
+
+
+/* Sorting Cards Section */
+
+.sorting-section {
+    padding: 30px 8% 100px;
+}
+
+.sorting-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+
+/* Individual Card */
+
+.sorting-card {
+    display: block;
+    text-decoration: none;
+    color: white;
+
+    padding: 30px;
+    border: 1px solid rgba(167, 139, 250, 0.2);
+    border-radius: 18px;
+
+    background: rgba(17, 24, 45, 0.75);
+    backdrop-filter: blur(12px);
+
+    transition: 0.3s ease;
+}
+
+.sorting-card:hover {
+    transform: translateY(-8px);
+    border-color: #a78bfa;
+    box-shadow: 0 10px 30px rgba(124, 58, 237, 0.2);
+}
+
+
+/* Card Icon */
+
+.sorting-icon {
+    font-size: 35px;
+    color: #a78bfa;
+    margin-bottom: 20px;
+}
+
+
+/* Card Content */
+
+.sorting-card h2 {
+    font-size: 22px;
+    margin-bottom: 15px;
+}
+
+.sorting-card p {
+    color: #aab0c5;
+    line-height: 1.7;
+    min-height: 80px;
+}
+
+
+/* Complexity Information */
+
+.algorithm-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-top: 25px;
+    padding: 15px 0;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.algorithm-info span {
+    color: #929bb5;
+    font-size: 13px;
+}
+
+.algorithm-info strong {
+    color: #a78bfa;
+    font-size: 14px;
+}
+
+
+/* Explore Link */
+
+.explore-link {
+    display: inline-block;
+    margin-top: 15px;
+
+    color: #a78bfa;
+    font-weight: 600;
+}
+
+
+/* Responsive Design */
+
+@media (max-width: 900px) {
+    .sorting-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .sorting-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .sorting-hero h1 {
+        font-size: 2.2rem;
+    }
+}
