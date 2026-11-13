@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | AlgoVerse</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="login.css">
+</head>
+
+<body>
+
+    <!-- Same particle background as homepage -->
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- Navigation bar -->
+    <header class="navbar">
+        <a href="index.html" class="logo">AlgoVerse</a>
+
+        <a href="index.html" class="back-home">← Back to Home</a>
+    </header>
+
+    <!-- Login section -->
+    <main class="login-container">
+
+        <div class="login-card">
+
+            <div class="login-icon">⌘</div>
+
+            <p class="welcome-text">WELCOME BACK</p>
+
+            <h1>Login to AlgoVerse</h1>
+
+            <p class="login-description">
+                Continue your journey of understanding algorithms.
+            </p>
+
+            <form id="login-form">
+
+                <label for="email">Email Address</label>
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="Enter your email"
+                    required
+                >
+
+                <label for="password">Password</label>
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Enter your password"
+                    required
+                >
+
+                <div class="login-options">
+                    <label class="remember-label">
+                        <input type="checkbox" id="remember">
+                        Remember me
+                    </label>
+                </div>
+
+                <button type="submit" class="login-submit">
+                    Login
+                </button>
+
+                <p id="login-message"></p>
+
+            </form>
+
+            <div class="login-divider">
+                <span>OR</span>
+            </div>
+
+            <p class="signup-text">
+    New to AlgoVerse?
+    <a href="signup.html">Create an account</a>
+</p>
+
+        </div>
+
+    </main>
+
+    <footer class="login-footer">
+        Explore. Visualize. Understand. | © 2026 AlgoVerse
+    </footer>
+
+    <!-- Existing particle animation -->
+    <script type="module" src="js/main.js"></script>
+
+    <!-- Login form JavaScript -->
+    <script src="js/login.js"></script>
+
+</body>
+</html>
