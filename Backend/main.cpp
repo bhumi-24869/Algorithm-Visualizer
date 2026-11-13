@@ -2,16 +2,23 @@
 #include <string>
 #include <vector>
 #include <sstream>
-
+#include <stdexcept>
+#include <algorithm>
 #include "models/step.h"
 
 using namespace std;
 
-// Function declarations from existing algorithm files
+// Algorithm function declarations
 vector<Step> binarySearch(vector<int> arr, int target);
+vector<Step> linearSearch(vector<int> arr, int target);
 vector<Step> bubbleSort(vector<int> arr);
+vector<Step> insertionSort(vector<int> arr);
+vector<Step> mergeSort(vector<int> arr);
+vector<Step> quickSort(vector<int> arr);
+vector<Step> selectionSort(vector<int> arr);
+vector<Step> towerOfHanoi(int n);
 
-// Convert special characters into valid JSON strings
+// JSON string escaping
 string escapeJSON(const string& text) {
     string result;
 
@@ -118,6 +125,10 @@ vector<int> parseArray(const string& input) {
         }
 
         arr.push_back(number);
+
+        if (arr.size() > 1000) {
+            throw invalid_argument("Array is too large");
+        }
     }
 
     if (arr.empty()) {
@@ -127,51 +138,124 @@ vector<int> parseArray(const string& input) {
     return arr;
 }
 
+// Parse a single integer
+int parseInteger(const string& input) {
+    size_t pos = 0;
+    int number = stoi(input, &pos);
+
+    if (pos != input.size()) {
+        throw invalid_argument("Invalid integer input");
+    }
+
+    return number;
+}
 
 // Main execution function
 int main(int argc, char* argv[]) {
-
     try {
         if (argc < 3) {
-
-            cerr << "Usage: algorithm_runner "
-                 << "<algorithm> <array> [target]";
-
-            return 1;
-        }
-
-        string algorithm = argv[1];
-        vector<int> arr = parseArray(argv[2]);
-        vector<Step> steps;
-
-        if (algorithm == "binarySearch") {
-            if (argc < 4) {
-                throw invalid_argument(
-                    "Binary Search requires a target"
-                );
-            }
-
-            int target = stoi(argv[3]);
-            steps = binarySearch(arr, target);
-
-        }
-
-        else if (algorithm == "bubbleSort") {
-            steps = bubbleSort(arr);
-        }
-
-        else {
             throw invalid_argument(
-                "Unknown algorithm"
+                "Usage: algorithm_runner <algorithm> <input> [target]"
             );
         }
 
-        cout << stepsToJSON(steps);
+        string algorithm = argv[1];
+
+        vector<Step> steps;
+
+        // SEARCHING ALGORITHMS
+
+        if (algorithm == "binarySearch" ||
+            algorithm == "linearSearch") {
+
+            vector<int> arr = parseArray(argv[2]);
+
+            if (argc < 4) {
+                throw invalid_argument(
+                    "Search algorithms require a target"
+                );
+            }
+
+            int target = parseInteger(argv[3]);
+
+            if (algorithm == "binarySearch") {
+                if (!is_sorted(arr.begin(), arr.end())) {
+                    throw invalid_argument(
+                        "Binary Search requires a sorted array"
+                    );
+                }
+
+                steps = binarySearch(arr, target);
+            }
+
+            else {
+                steps = linearSearch(arr, target);
+            }
+        }
+
+        // SORTING ALGORITHMS
+        else if (algorithm == "bubbleSort" ||
+                 algorithm == "insertionSort" ||
+                 algorithm == "mergeSort" ||
+                 algorithm == "quickSort" ||
+                 algorithm == "selectionSort") {
+
+            vector<int> arr = parseArray(argv[2]);
+
+            if (algorithm == "bubbleSort") {
+                steps = bubbleSort(arr);
+            }
+
+            else if (algorithm == "insertionSort") {
+                steps = insertionSort(arr);
+            }
+
+            else if (algorithm == "mergeSort") {
+                steps = mergeSort(arr);
+            }
+
+            else if (algorithm == "quickSort") {
+                steps = quickSort(arr);
+            }
+
+            else if (algorithm == "selectionSort") {
+                steps = selectionSort(arr);
+            }
+        }
+
+
+        // TOWER OF HANOI
+        else if (algorithm == "towerOfHanoi") {
+
+            int disks = parseInteger(argv[2]);
+
+            if (disks < 1 || disks > 12) {
+                throw invalid_argument(
+                    "Number of disks must be between 1 and 12"
+                );
+            }
+
+            steps = towerOfHanoi(disks);
+        }
+
+
+        // UNKNOWN ALGORITHM
+        else {
+
+            throw invalid_argument(
+                "Unknown algorithm: " + algorithm
+            );
+        }
+
+
+        // Output JSON
+        cout << stepsToJSON(steps) << endl;
+
         return 0;
     }
 
     catch (const exception& e) {
-        cerr << e.what();
+        cerr << e.what() << endl;
         return 1;
     }
 }

@@ -1,27 +1,30 @@
 import subprocess
 import json
 from pathlib import Path
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, session
 from Database.db import db
 from datetime import datetime, timezone
 
-# Main project directory
+# Project directories
 BASE_DIR = Path(__file__).resolve().parents[1]
-
-# C++ backend directory
 CPP_DIR = BASE_DIR / "Backend"
-
-# Compiled C++ executable
 CPP_EXECUTABLE = CPP_DIR / "algorithm_runner.exe"
 
+# MongoDB collection
 history_collection = db["visualization_history"]
 visualization_bp = Blueprint("visualization", __name__)
 
 def execute_cpp(algorithm, input_data):
-    # Map frontend algorithm names to C++ function names
+    # Frontend names mapped to C++ names
     algorithm_map = {
         "Binary Search": "binarySearch",
-        "Bubble Sort": "bubbleSort"
+        "Linear Search": "linearSearch",
+        "Bubble Sort": "bubbleSort",
+        "Insertion Sort": "insertionSort",
+        "Merge Sort": "mergeSort",
+        "Quick Sort": "quickSort",
+        "Selection Sort": "selectionSort",
+        "Tower of Hanoi": "tower"
     }
 
     if algorithm not in algorithm_map:
@@ -29,42 +32,50 @@ def execute_cpp(algorithm, input_data):
 
     cpp_algorithm = algorithm_map[algorithm]
 
-    # Get array
-    arr = input_data.get("array")
+    # Tower of Hanoi uses disk count instead of an array
+    if algorithm == "Tower of Hanoi":
+        disks = input_data.get("disks")
 
-    if not isinstance(arr, list) or not arr:
-        raise ValueError("A non-empty array is required")
+        if type(disks) is not int or not 1 <= disks <= 12:
+            raise ValueError("Disk count must be between 1 and 12")
 
-    # Validate array elements
-    if len(arr) > 1000 or any(
-        type(x) is not int for x in arr
-    ):
-        raise ValueError("Array must contain up to 1000 integers")
+        command = [
+            str(CPP_EXECUTABLE),
+            cpp_algorithm,
+            str(disks)
+        ]
 
-    # Binary Search requires a sorted array
-    if algorithm == "Binary Search" and arr != sorted(arr):
-        raise ValueError("Binary Search requires a sorted array")
+    else:
+        arr = input_data.get("array")
 
-    # Convert array into comma-separated string
-    array_string = ",".join(map(str, arr))
+        if not isinstance(arr, list) or not arr:
+            raise ValueError("A non-empty array is required")
 
-    # Construct command
-    command = [
-        str(CPP_EXECUTABLE),
-        cpp_algorithm,
-        array_string
-    ]
+        if len(arr) > 1000 or any(type(x) is not int for x in arr):
+            raise ValueError("Array must contain up to 1000 integers")
 
-    # Binary Search requires a target
-    if algorithm == "Binary Search":
-        target = input_data.get("target")
+        # Binary Search requires sorted input
+        if algorithm == "Binary Search" and arr != sorted(arr):
+            raise ValueError("Binary Search requires a sorted array")
 
-        if type(target) is not int:
-            raise ValueError("A valid integer target is required")
+        array_string = ",".join(map(str, arr))
 
-        command.append(str(target))
+        command = [
+            str(CPP_EXECUTABLE),
+            cpp_algorithm,
+            array_string
+        ]
 
-    # Execute C++ program
+        # Both search algorithms require a target
+        if algorithm in ["Binary Search", "Linear Search"]:
+            target = input_data.get("target")
+
+            if type(target) is not int:
+                raise ValueError("A valid integer target is required")
+
+            command.append(str(target))
+
+    # Run C++ executable
     result = subprocess.run(
         command,
         capture_output=True,
@@ -74,19 +85,28 @@ def execute_cpp(algorithm, input_data):
         check=False
     )
 
-    # Check execution result
     if result.returncode != 0:
         print("C++ Error:", result.stderr)
         raise RuntimeError("C++ algorithm execution failed")
 
-    # Convert C++ JSON output into Python dictionary
     output = json.loads(result.stdout)
+
+    if not isinstance(output, dict) or "steps" not in output:
+        raise RuntimeError("Invalid response from C++ program")
 
     return output
 
 
 @visualization_bp.route("/visualize", methods=["POST"])
 def visualize():
+    # Require login
+    user_id = session.get("user_id")
+
+    if not user_id:
+        return jsonify({
+            "error": "Please log in first"
+        }), 401
+
     data = request.get_json(silent=True)
 
     if not isinstance(data, dict):
@@ -108,14 +128,14 @@ def visualize():
         }), 400
 
     try:
-        # Execute C++ algorithm
         execution_result = execute_cpp(
             algorithm_name,
             input_data
         )
 
-        # Save execution in MongoDB
+        # Save history with the logged-in user's ID
         history_record = {
+            "user_id": user_id,
             "algorithm_name": algorithm_name,
             "input_data": input_data,
             "steps": execution_result["steps"],
@@ -123,9 +143,7 @@ def visualize():
             "created_at": datetime.now(timezone.utc)
         }
 
-        result = history_collection.insert_one(
-            history_record
-        )
+        result = history_collection.insert_one(history_record)
 
         return jsonify({
             "message": "Algorithm executed successfully",
