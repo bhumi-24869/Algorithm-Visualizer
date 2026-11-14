@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AlgoVerse | History</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="history.css">
+</head>
+
+<body>
+
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- Navigation -->
+    <header class="navbar">
+
+        <div class="logo">
+            Algo<span>Verse</span>
+        </div>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="index.html#algorithms">Algorithms</a>
+            <a href="index.html#how-it-works">How It Works</a>
+            <a href="performance.html">Performance</a>
+            <a href="history.html" class="active">History</a>
+        </nav>
+
+        <a href="login.html" class="login-btn">Account</a>
+
+    </header>
+
+
+    <main>
+
+        <!-- History Hero -->
+        <section class="history-hero">
+
+            <p class="small-heading">YOUR LEARNING JOURNEY</p>
+
+            <h1>
+                Algorithm <span>History</span>
+            </h1>
+
+            <p>
+                Revisit your previous visualizations and
+                keep track of your algorithm learning journey.
+            </p>
+
+        </section>
+
+
+        <!-- Statistics -->
+        <section class="history-stats">
+
+            <div class="stat-card">
+
+                <div class="stat-icon">⌘</div>
+
+                <div>
+                    <p>Total Executions</p>
+                    <h2 id="totalExecutions">0</h2>
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">◈</div>
+
+                <div>
+                    <p>Algorithms Explored</p>
+                    <h2 id="uniqueAlgorithms">0</h2>
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">✓</div>
+
+                <div>
+                    <p>Completed Runs</p>
+                    <h2 id="completedRuns">0</h2>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- History Content -->
+        <section class="history-section">
+
+            <div class="history-heading">
+
+                <div>
+                    <p class="small-heading">YOUR ACTIVITY</p>
+                    <h2>Recent Executions</h2>
+                </div>
+
+                <button id="clearHistoryBtn" class="clear-btn">
+                    Clear All History
+                </button>
+
+            </div>
+
+
+            <!-- Search and Filter -->
+            <div class="history-controls">
+
+                <input
+                    type="text"
+                    id="searchHistory"
+                    placeholder="Search algorithms..."
+                >
+
+                <select id="filterHistory">
+
+                    <option value="all">All Algorithms</option>
+                    <option value="Sorting">Sorting</option>
+                    <option value="Searching">Searching</option>
+                    <option value="Tower of Hanoi">Tower of Hanoi</option>
+
+                </select>
+
+            </div>
+
+
+            <!-- Loading -->
+            <div id="loadingMessage" class="message-box">
+                Loading your history...
+            </div>
+
+
+            <!-- Error -->
+            <div id="errorMessage" class="message-box error-message"></div>
+
+
+            <!-- Empty State -->
+            <div id="emptyMessage" class="empty-history" hidden>
+
+                <div class="empty-icon">⌛</div>
+
+                <h3>No History Found</h3>
+
+                <p>
+                    Your algorithm visualizations will appear here
+                    after you execute an algorithm.
+                </p>
+
+                <a href="index.html#algorithms" class="primary-btn">
+                    Explore Algorithms →
+                </a>
+
+            </div>
+
+
+            <!-- History Table -->
+            <div class="table-wrapper" id="historyTableWrapper" hidden>
+
+                <table class="history-table">
+
+                    <thead>
+                        <tr>
+                            <th>Algorithm</th>
+                            <th>Input</th>
+                            <th>Steps</th>
+                            <th>Status</th>
+                            <th>Date & Time</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="historyTableBody">
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+            <p id="resultCount" class="result-count"></p>
+
+        </section>
+
+    </main>
+
+
+    <!-- Footer -->
+    <footer>
+
+        <div class="logo">
+            Algo<span>Verse</span>
+        </div>
+
+        <p>Explore. Visualize. Understand.</p>
+
+        <p class="copyright">
+            © 2026 AlgoVerse. All rights reserved.
+        </p>
+
+    </footer>
+
+
+    <script type="module" src="js/main.js"></script>
+    <script src="js/history.js"></script>
+
+</body>
+
+</html>

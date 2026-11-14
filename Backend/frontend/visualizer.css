@@ -3,19 +3,23 @@
    1. GENERAL PAGE
 ========================================== */
 
+* {
+    box-sizing: border-box;
+}
+
 html {
     min-height: 100%;
-    background: #080b18;
+    background: #050714;
 }
 
 body {
     margin: 0;
     min-height: 100vh;
-    background: #080b18 !important;
-    color: white;
+    background: #050714 !important;
+    color: #ffffff;
     font-family: Arial, sans-serif;
+    overflow-x: hidden;
 }
-
 
 /* ==========================================
    2. PARTICLE BACKGROUND
@@ -23,8 +27,7 @@ body {
 
 #particle-canvas {
     position: fixed;
-    top: 0;
-    left: 0;
+    inset: 0;
     width: 100%;
     height: 100%;
     z-index: 0;
@@ -38,300 +41,361 @@ footer {
     z-index: 1;
 }
 
-
 /* ==========================================
    3. MAIN CONTAINER
 ========================================== */
 
 .visualizer-container {
-    width: 85%;
-    max-width: 1200px;
-    margin: 50px auto;
+    width: 90%;
+    max-width: 1450px;
+    margin: 45px auto 70px;
 }
-
 
 /* ==========================================
    4. PAGE HEADING
 ========================================== */
 
-.visualizer-container .page-heading {
+.page-heading {
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 38px;
     background: transparent !important;
     border: none;
 }
 
 .small-heading {
     color: #a78bfa;
-    letter-spacing: 3px;
+    letter-spacing: 5px;
     font-size: 12px;
     font-weight: bold;
 }
 
 .page-heading h1 {
-    font-size: 38px;
-    color: white;
+    font-size: clamp(30px, 4vw, 46px);
+    margin: 15px 0;
+    color: #ffffff;
+    text-shadow: 0 0 20px rgba(139, 92, 246, 0.25);
 }
 
 .page-heading h1 span {
     color: #a78bfa;
 }
 
-.page-heading p {
-    color: #a0a5bd;
-    line-height: 1.6;
+.page-heading > p:last-child {
+    color: #a5aecb;
+    font-size: 15px;
+    line-height: 1.7;
 }
 
-
 /* ==========================================
-   5. PANELS
+   5. COMMON PANEL DESIGN
 ========================================== */
 
-.visualizer-container .input-panel,
-.visualizer-container .visualization-panel,
-.visualizer-container .step-panel {
+.input-panel,
+.visualization-panel,
+.step-panel {
+    background:
+        linear-gradient(
+            145deg,
+            rgba(19, 25, 52, 0.96),
+            rgba(9, 13, 31, 0.96)
+        ) !important;
 
-    background: rgba(17, 23, 43, 0.88) !important;
+    border: 1px solid rgba(139, 92, 246, 0.35);
+    border-radius: 17px;
+    padding: 26px;
+    backdrop-filter: blur(15px);
 
-    border: 1px solid rgba(167, 139, 250, 0.3);
+    box-shadow:
+        0 0 25px rgba(109, 40, 217, 0.10),
+        inset 0 0 25px rgba(139, 92, 246, 0.035);
 
-    border-radius: 15px;
+    color: #ffffff;
+    position: relative;
+    overflow: hidden;
+}
 
-    padding: 25px;
+.input-panel::before,
+.visualization-panel::before,
+.step-panel::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 12%;
+    width: 76%;
+    height: 1px;
 
-    margin-bottom: 25px;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        #a78bfa,
+        #38bdf8,
+        transparent
+    );
 
-    backdrop-filter: blur(10px);
-
-    color: white;
-
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
-
+    opacity: 0.8;
 }
 
 .input-panel h2,
 .visualization-panel h2,
 .step-panel h2 {
-    color: white;
+    color: #ffffff;
+    margin: 0;
+    font-size: 19px;
 }
 
+/* ==========================================
+   6. SECTION LABELS
+========================================== */
+
+.section-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.section-icon {
+    width: 37px;
+    height: 37px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    color: #c4b5fd;
+    background: rgba(139, 92, 246, 0.15);
+    border: 1px solid rgba(167, 139, 250, 0.35);
+    font-size: 20px;
+}
 
 /* ==========================================
-   6. INPUT SECTION
+   7. INPUT SECTION
 ========================================== */
+
+.input-panel {
+    margin-bottom: 25px;
+}
 
 .input-panel label {
     display: block;
-    margin: 15px 0 10px;
-    color: #c4c8dc;
+    margin-bottom: 10px;
+    color: #c4c9e2;
+    font-size: 14px;
+}
+
+.input-row {
+    display: flex;
+    gap: 15px;
+    align-items: stretch;
 }
 
 .input-panel input {
-
-    box-sizing: border-box;
-
     width: 100%;
-
-    padding: 14px;
-
-    border-radius: 8px;
-
-    border: 1px solid #444d70;
-
-    background: #080b18;
-
-    color: white;
-
+    min-width: 0;
+    padding: 15px 17px;
+    border-radius: 9px;
+    border: 1px solid #424a76;
+    background: rgba(5, 8, 25, 0.9);
+    color: #ffffff;
     outline: none;
-
     font-size: 15px;
-
+    transition: 0.3s ease;
 }
 
 .input-panel input:focus {
     border-color: #a78bfa;
-    box-shadow: 0 0 12px rgba(167, 139, 250, 0.2);
+    box-shadow: 0 0 15px rgba(139, 92, 246, 0.25);
 }
 
 .input-panel input::placeholder {
-    color: #777f9e;
+    color: #737d9e;
 }
 
+.input-hint {
+    color: #7f89a8;
+    font-size: 12px;
+    margin: 10px 0 0;
+}
 
 /* ==========================================
-   7. BUTTONS
+   8. GENERAL BUTTONS
 ========================================== */
 
 .visualizer-container button {
-
-    padding: 12px 22px;
-
     border: none;
-
-    border-radius: 8px;
-
-    background: linear-gradient(135deg, #7657e8, #5b43c6);
-
-    color: white;
-
+    border-radius: 9px;
     cursor: pointer;
-
-    margin: 10px 5px 0 0;
-
-    font-size: 14px;
-
+    color: #ffffff;
     font-weight: bold;
-
-    transition: all 0.3s ease;
-
+    transition: all 0.25s ease;
 }
 
-.visualizer-container button:hover:not(:disabled) {
+#visualizeBtn {
+    flex-shrink: 0;
+    padding: 0 24px;
+    background: linear-gradient(120deg, #7c3aed, #4f46e5);
+    border: 1px solid rgba(196, 181, 253, 0.4);
+    box-shadow: 0 0 18px rgba(124, 58, 237, 0.25);
+    font-size: 14px;
+}
 
-    background: linear-gradient(135deg, #9479ff, #7657e8);
+#visualizeBtn span {
+    margin-right: 7px;
+}
 
+#visualizeBtn:hover:not(:disabled) {
+    background: linear-gradient(120deg, #9333ea, #6366f1);
+    box-shadow: 0 0 25px rgba(139, 92, 246, 0.5);
     transform: translateY(-2px);
-
-    box-shadow: 0 5px 15px rgba(118, 87, 232, 0.35);
-
 }
 
 .visualizer-container button:disabled {
-
-    opacity: 0.4;
-
+    opacity: 0.35;
     cursor: not-allowed;
-
     transform: none;
-
 }
 
+/* ==========================================
+   9. MAIN WORKSPACE
+========================================== */
+
+.workspace {
+    display: grid;
+    grid-template-columns: minmax(0, 1.55fr) minmax(320px, 0.85fr);
+    gap: 24px;
+    align-items: stretch;
+}
+
+.visualization-panel,
+.step-panel {
+    margin: 0;
+    min-width: 0;
+}
 
 /* ==========================================
-   8. VISUALIZATION PANEL
+   10. PANEL HEADINGS
 ========================================== */
 
 .panel-heading {
-
     display: flex;
-
     justify-content: space-between;
-
     align-items: center;
-
     gap: 15px;
-
+    margin-bottom: 25px;
 }
 
-#status {
-
-    color: #a78bfa;
-
-    font-size: 14px;
-
+.panel-subtitle {
+    color: #8b83d9;
+    font-size: 10px;
     font-weight: bold;
-
+    letter-spacing: 2px;
+    margin: 0 0 8px;
 }
 
+.status-badge {
+    display: inline-block;
+    padding: 9px 13px;
+    border-radius: 20px;
+    border: 1px solid rgba(56, 189, 248, 0.3);
+    background: rgba(56, 189, 248, 0.08);
+    color: #7dd3fc;
+    font-size: 11px;
+    font-weight: bold;
+    text-align: center;
+}
 
 /* ==========================================
-   9. ARRAY VISUALIZATION AREA
+   11. VISUALIZATION GRID
 ========================================== */
 
-#arrayContainer {
-
-    min-height: 300px;
-
-    display: flex;
-
-    justify-content: center;
-
-    align-items: flex-end;
-
-    gap: 12px;
-
-    padding: 35px 15px 10px;
-
+.visualization-grid {
+    min-height: 340px;
+    padding: 25px 15px 12px;
+    border: 1px solid rgba(99, 102, 241, 0.18);
     border-radius: 12px;
 
-    background: rgba(8, 11, 24, 0.45);
+    background-color: rgba(5, 8, 24, 0.8);
 
-    margin-top: 20px;
+    background-image:
+        linear-gradient(
+            rgba(99, 102, 241, 0.09) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(99, 102, 241, 0.09) 1px,
+            transparent 1px
+        );
 
+    background-size: 30px 30px;
     overflow-x: auto;
-
 }
 
+#arrayContainer {
+    min-height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 13px;
+    padding: 10px 5px 8px;
+    min-width: max-content;
+}
 
 /* ==========================================
-   10. BAR WRAPPER
+   12. BAR WRAPPER
 ========================================== */
 
 .bar-wrapper {
-
     display: flex;
-
     flex-direction: column;
-
     align-items: center;
-
     justify-content: flex-end;
-
-    min-width: 45px;
-
+    min-width: 44px;
 }
 
-
 /* ==========================================
-   11. NORMAL ARRAY BARS
+   13. FUTURISTIC ARRAY BARS
 ========================================== */
 
 .bar {
-
-    width: 45px;
+    width: 44px;
 
     background: linear-gradient(
         180deg,
-        #c4b5fd,
-        #8b5cf6,
-        #5b21b6
+        #c4b5fd 0%,
+        #8b5cf6 45%,
+        #5b21b6 100%
     );
 
+    border: 1px solid rgba(196, 181, 253, 0.5);
+    border-bottom: none;
     border-radius: 7px 7px 0 0;
 
     display: flex;
-
     justify-content: center;
-
     align-items: flex-start;
 
-    padding-top: 8px;
+    padding-top: 9px;
 
-    color: white;
-
+    color: #ffffff;
     font-size: 13px;
-
     font-weight: bold;
 
-    box-sizing: border-box;
-
-    box-shadow: 0 0 12px rgba(139, 92, 246, 0.3);
+    box-shadow:
+        0 0 12px rgba(139, 92, 246, 0.35),
+        inset 0 0 12px rgba(255, 255, 255, 0.12);
 
     transition:
         height 0.35s ease,
         background 0.3s ease,
         transform 0.3s ease,
         box-shadow 0.3s ease;
-
 }
 
-
 /* ==========================================
-   12. ACTIVE BARS
+   14. ACTIVE BARS
 ========================================== */
 
 .bar.active {
-
     background: linear-gradient(
         180deg,
         #fde68a,
@@ -339,132 +403,876 @@ footer {
         #d97706
     );
 
-    box-shadow: 0 0 20px rgba(245, 158, 11, 0.6);
+    border-color: #fcd34d;
 
-    transform: translateY(-5px);
+    box-shadow:
+        0 0 12px rgba(245, 158, 11, 0.7),
+        0 0 28px rgba(245, 158, 11, 0.35);
 
+    transform: translateY(-7px);
+    color: #ffffff;
 }
 
-
 /* ==========================================
-   13. ARRAY INDEX
+   15. ARRAY INDEX
 ========================================== */
 
 .bar-index {
-
-    color: #9ca3af;
-
+    color: #a5b4d4;
     font-size: 12px;
-
     margin-top: 10px;
-
 }
 
-
 /* ==========================================
-   14. CONTROL PANEL
+   16. PLAYBACK CONTROLS
 ========================================== */
+
+.control-area {
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(139, 92, 246, 0.2);
+}
+
+.control-label {
+    text-align: center;
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: #818bad;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
 
 .control-panel {
-
-    text-align: center;
-
-    margin: 25px 0;
-
-    background: transparent !important;
-
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
 }
 
+.control-btn {
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    margin: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 21px;
+    background: rgba(67, 56, 125, 0.3);
+    border: 1px solid rgba(167, 139, 250, 0.4) !important;
+
+    color: #c4b5fd;
+
+    box-shadow: 0 0 12px rgba(139, 92, 246, 0.08);
+}
+
+.control-btn:hover:not(:disabled) {
+    background: rgba(124, 58, 237, 0.35);
+    border-color: #a78bfa !important;
+    color: #ffffff;
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.4);
+    transform: translateY(-3px);
+}
+
+.control-btn.play-control {
+    width: 58px;
+    height: 58px;
+    font-size: 23px;
+    background: linear-gradient(135deg, #9333ea, #4f46e5);
+    border: 1px solid #c4b5fd !important;
+    color: #ffffff;
+
+    box-shadow:
+        0 0 15px rgba(139, 92, 246, 0.5),
+        0 0 30px rgba(79, 70, 229, 0.2);
+}
+
+.control-btn.play-control:hover:not(:disabled) {
+    background: linear-gradient(135deg, #a855f7, #6366f1);
+    box-shadow: 0 0 28px rgba(139, 92, 246, 0.7);
+}
+
+.control-btn.reset-control {
+    margin-left: 12px;
+    color: #7dd3fc;
+    border-color: rgba(56, 189, 248, 0.4) !important;
+}
+
+.control-btn.reset-control:hover:not(:disabled) {
+    background: rgba(14, 165, 233, 0.2);
+    border-color: #38bdf8 !important;
+    box-shadow: 0 0 18px rgba(56, 189, 248, 0.3);
+}
 
 /* ==========================================
-   15. STEP EXPLANATION
+   17. STEP EXPLANATION PANEL
 ========================================== */
 
-.step-panel p {
+.step-panel {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    padding: 30px;
+}
 
-    color: #b8bdd3;
+.step-heading {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding-bottom: 23px;
+    border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+}
 
-    line-height: 1.7;
+.step-heading-icon {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    font-size: 15px;
+    border-radius: 12px;
+    background: linear-gradient(
+        135deg,
+        rgba(139, 92, 246, 0.3),
+        rgba(56, 189, 248, 0.12)
+    );
 
+    border: 1px solid rgba(167, 139, 250, 0.4);
+    color: #c4b5fd;
+    font-size: 27px;
+
+    box-shadow: 0 0 18px rgba(139, 92, 246, 0.15);
+}
+
+.step-content {
+    flex: 1;
+    padding: 25px 0;
+}
+
+.step-tag {
+    display: inline-block;
+    padding: 7px 11px;
+    border-radius: 5px;
+
+    color: #c4b5fd;
+    background: rgba(139, 92, 246, 0.12);
+    border: 1px solid rgba(167, 139, 250, 0.25);
+
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    margin-bottom: 18px;
+}
+
+.step-panel #stepMessage {
+    color: #e1e5fa;
+    font-size: 18px;
+    line-height: 1.9;
+    font-weight: 500;
+    margin: 0;
+    overflow-wrap: anywhere;
+}
+
+/* ==========================================
+   18. STEP COUNTER AND PROGRESS
+========================================== */
+
+.step-footer {
+    padding-top: 20px;
+    border-top: 1px solid rgba(139, 92, 246, 0.2);
 }
 
 .step-counter {
-
-    color: #a78bfa;
-
-    margin-top: 15px;
-
-    font-size: 14px;
-
-    font-weight: bold;
-
+    color: #9ca9ca;
+    font-size: 12px;
+    margin-bottom: 17px;
 }
 
+.step-counter span {
+    letter-spacing: 2px;
+    margin-right: 8px;
+}
+
+.step-counter strong {
+    color: #c4b5fd;
+    font-size: 23px;
+}
+
+.step-progress {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.progress-track {
+    flex: 1;
+    height: 7px;
+    background: rgba(100, 116, 139, 0.2);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    width: 0%;
+    height: 100%;
+    border-radius: 10px;
+
+    background: linear-gradient(
+        90deg,
+        #9333ea,
+        #6366f1,
+        #38bdf8
+    );
+
+    box-shadow: 0 0 12px rgba(139, 92, 246, 0.6);
+    transition: width 0.3s ease;
+}
+
+#progressText {
+    color: #9ca9ca;
+    font-size: 9px;
+    font-weight: bold;
+    white-space: nowrap;
+}
 
 /* ==========================================
-   16. FOOTER
+   19. INFORMATION NOTE
+========================================== */
+
+.info-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+
+    margin-top: 25px;
+    padding: 13px;
+
+    border-radius: 8px;
+    background: rgba(56, 189, 248, 0.06);
+    border: 1px solid rgba(56, 189, 248, 0.16);
+
+    color: #94a3c4;
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+.info-note span {
+    color: #38bdf8;
+    font-size: 16px;
+}
+
+/* ==========================================
+   20. FOOTER
 ========================================== */
 
 footer {
-
     text-align: center;
-
-    padding: 20px;
-
-    color: #777f9e;
-
+    padding: 25px;
+    color: #77809f;
     background: transparent !important;
-
+    font-size: 13px;
 }
 
-
 /* ==========================================
-   17. RESPONSIVE DESIGN
+   21. RESPONSIVE DESIGN
 ========================================== */
 
+@media (max-width: 1000px) {
+    .workspace {
+        grid-template-columns: 1fr;
+    }
+
+    .step-panel {
+        min-height: 350px;
+    }
+}
+
 @media (max-width: 768px) {
-
     .visualizer-container {
-
         width: 92%;
-
-        margin: 30px auto;
-
+        margin: 30px auto 50px;
     }
 
     .page-heading h1 {
+        font-size: 29px;
+    }
 
-        font-size: 28px;
+    .input-row {
+        flex-direction: column;
+    }
 
+    #visualizeBtn {
+        padding: 14px;
     }
 
     .panel-heading {
-
         flex-direction: column;
-
         align-items: flex-start;
+    }
 
+    .visualization-panel,
+    .step-panel,
+    .input-panel {
+        padding: 20px;
+    }
+
+    .visualization-grid {
+        min-height: 310px;
+        padding-left: 10px;
+        padding-right: 10px;
     }
 
     #arrayContainer {
-
         justify-content: flex-start;
-
     }
 
     .bar-wrapper {
-
         min-width: 38px;
-
     }
 
     .bar {
-
         width: 38px;
-
     }
 
+    .control-panel {
+        gap: 9px;
+    }
+
+    .control-btn {
+        width: 42px;
+        height: 42px;
+        font-size: 18px;
+    }
+
+    .control-btn.play-control {
+        width: 51px;
+        height: 51px;
+    }
+
+    .step-panel #stepMessage {
+        font-size: 16px;
+    }
+
+    #progressText {
+        font-size: 8px;
+    }
 }
 
+@media (max-width: 400px) {
+    .control-panel {
+        gap: 7px;
+    }
+
+    .control-btn {
+        width: 38px;
+        height: 38px;
+    }
+
+    .control-btn.play-control {
+        width: 46px;
+        height: 46px;
+    }
+
+    .control-btn.reset-control {
+        margin-left: 3px;
+    }
+
+    .step-progress {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .progress-track {
+        width: 100%;
+        flex: none;
+    }
+}
+
+/* ==========================================
+   22. MERGE SORT DIVIDE-AND-MERGE VIEW
+========================================== */
+
+.merge-sort-view {
+    min-height: 300px;
+    padding: 18px;
+    border: 1px solid rgba(99, 102, 241, 0.18);
+    border-radius: 12px;
+    background-color: rgba(5, 8, 24, 0.8);
+
+    background-image:
+        linear-gradient(
+            rgba(99, 102, 241, 0.07) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(99, 102, 241, 0.07) 1px,
+            transparent 1px
+        );
+
+    background-size: 30px 30px;
+    overflow-x: auto;
+}
+
+.merge-current-array {
+    margin-bottom: 20px;
+    padding: 13px;
+    border: 1px solid rgba(56, 189, 248, 0.22);
+    border-radius: 10px;
+    background: rgba(56, 189, 248, 0.045);
+}
+
+.merge-section-title {
+    margin: 0 0 11px;
+    color: #8fdcfb;
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+}
+
+.merge-stage-title {
+    margin: 0 0 17px;
+    color: #e9e7ff;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+}
+
+.merge-parts-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(150px, 1fr));
+    gap: 13px;
+    align-items: stretch;
+}
+
+.merge-part-card {
+    min-width: 0;
+    min-height: 125px;
+    padding: 14px;
+    border: 1px solid rgba(167, 139, 250, 0.27);
+    border-radius: 10px;
+    background: rgba(19, 25, 52, 0.72);
+}
+
+.merge-part-card.left-card {
+    border-color: rgba(56, 189, 248, 0.42);
+}
+
+.merge-part-card.right-card {
+    border-color: rgba(167, 139, 250, 0.48);
+}
+
+.merge-part-card.result-card {
+    border-color: rgba(52, 211, 153, 0.42);
+}
+
+.merge-part-heading {
+    margin: 0 0 13px;
+    color: #bfc8e7;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.merge-values {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    min-height: 38px;
+    align-items: center;
+}
+
+.merge-value {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 34px;
+    min-height: 34px;
+    padding: 6px 9px;
+    border: 1px solid rgba(167, 139, 250, 0.45);
+    border-radius: 7px;
+    background: rgba(124, 58, 237, 0.2);
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: bold;
+    box-shadow: 0 0 10px rgba(139, 92, 246, 0.12);
+}
+
+.left-card .merge-value {
+    border-color: rgba(56, 189, 248, 0.55);
+    background: rgba(14, 165, 233, 0.16);
+}
+
+.right-card .merge-value {
+    border-color: rgba(167, 139, 250, 0.6);
+    background: rgba(124, 58, 237, 0.22);
+}
+
+.result-card .merge-value {
+    border-color: rgba(52, 211, 153, 0.55);
+    background: rgba(16, 185, 129, 0.16);
+}
+
+.merge-value.current-compare {
+    border-color: #fcd34d;
+    background: rgba(245, 158, 11, 0.28);
+    color: #fde68a;
+    box-shadow: 0 0 15px rgba(245, 158, 11, 0.35);
+    transform: translateY(-3px);
+}
+
+.merge-empty {
+    color: #77809f;
+    font-size: 12px;
+    font-style: italic;
+}
+
+.merge-range-info {
+    margin-top: 15px;
+    color: #8f9abb;
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+@media (max-width: 650px) {
+    .merge-parts-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .merge-sort-view {
+        padding: 12px;
+    }
+}
+
+/* ==========================================
+   23. MERGE SORT ANIMATED BARS
+========================================== */
+
+#arrayContainer[hidden],
+#mergeSortView[hidden] {
+    display: none !important;
+}
+
+.merge-sort-view {
+    width: 100%;
+    min-width: 0;
+    padding: 20px 10px;
+}
+
+.merge-sort-view[hidden] {
+    display: none !important;
+}
+
+.merge-current-array {
+    padding: 18px;
+    margin-bottom: 22px;
+    border: 1px solid rgba(130, 100, 255, 0.35);
+    border-radius: 14px;
+    background: rgba(20, 22, 48, 0.75);
+}
+
+.merge-section-title,
+.merge-part-heading {
+    color: #b8a7ff;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    margin-bottom: 18px;
+    text-transform: uppercase;
+}
+
+.merge-stage-title {
+    color: #a995ff;
+    text-align: center;
+    font-size: 17px;
+    margin: 20px 0;
+}
+
+.merge-parts-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 15px;
+}
+
+.merge-part-card {
+    min-width: 0;
+    min-height: 135px;
+    padding: 16px;
+    border: 1px solid rgba(130, 100, 255, 0.3);
+    border-radius: 13px;
+    background: rgba(17, 20, 43, 0.8);
+}
+
+.merge-part-card.left-card {
+    border-color: rgba(56, 189, 248, 0.42);
+}
+
+.merge-part-card.right-card {
+    border-color: rgba(167, 139, 250, 0.48);
+}
+
+.merge-part-card.result-card {
+    grid-column: 1 / -1;
+    border-color: rgba(0, 220, 190, 0.4);
+}
+
+.merge-values {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 9px;
+    min-height: 155px;
+    padding: 10px 3px;
+}
+
+.merge-bar-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    min-width: 35px;
+    animation: mergeBarEnter 0.45s ease both;
+}
+
+.merge-bar {
+    width: 35px;
+    min-height: 25px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 7px;
+    border-radius: 7px 7px 3px 3px;
+    color: white;
+    font-size: 12px;
+    font-weight: 700;
+    background: linear-gradient(180deg, #9b75ff, #5636c9);
+    box-shadow: 0 0 12px rgba(126, 87, 255, 0.3);
+    transition: height 0.4s ease, background 0.3s ease;
+}
+
+.merge-bar.merge-highlight {
+    background: linear-gradient(180deg, #ffbd59, #ff7043);
+    box-shadow: 0 0 17px rgba(255, 145, 65, 0.6);
+}
+
+.merge-bar-index {
+    color: #aaa9c7;
+    font-size: 11px;
+}
+
+.merge-empty {
+    color: #777995;
+    font-size: 13px;
+    align-self: center;
+}
+
+.merge-range-info {
+    margin-top: 18px;
+    color: #a9a7c5;
+    font-size: 12px;
+    text-align: center;
+}
+
+@keyframes mergeBarEnter {
+    from {
+        opacity: 0;
+        transform: translateY(35px) scale(0.85);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@media (max-width: 650px) {
+    .merge-parts-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .merge-part-card.result-card {
+        grid-column: auto;
+    }
+
+    .merge-bar {
+        width: 29px;
+    }
+}
+
+/* ==========================================
+   24. SEARCHING AND TOWER INPUT VISIBILITY
+========================================== */
+
+#arrayInputGroup[hidden],
+#targetInputGroup[hidden],
+#towerInputGroup[hidden],
+#towerView[hidden] {
+    display: none !important;
+}
+
+.input-panel .input-row button {
+    flex-shrink: 0;
+}
+
+/* ==========================================
+   25. TOWER OF HANOI VISUALIZATION
+========================================== */
+
+.tower-view {
+    width: 100%;
+    padding: 25px 12px;
+}
+
+.tower-stage-title {
+    text-align: center;
+    color: #b8a7ff;
+    font-size: 20px;
+    margin: 10px 0 35px;
+}
+
+.tower-rods {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+    min-height: 290px;
+    align-items: end;
+    padding: 20px 10px;
+}
+
+.tower-rod-container {
+    position: relative;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    min-width: 0;
+}
+
+.tower-rod {
+    position: relative;
+    width: 100%;
+    max-width: 220px;
+    height: 205px;
+    background: transparent;
+    border-radius: 8px 8px 0 0;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: flex-start;
+    padding-bottom: 5px;
+    z-index: 1;
+}
+
+/* Vertical pole behind the disks */
+
+.tower-rod::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 8px;
+    height: 100%;
+    background: linear-gradient(90deg, #8b72e8, #c4b5fd);
+    border-radius: 8px 8px 0 0;
+    z-index: 0;
+}
+
+.tower-base {
+    width: 95%;
+    height: 9px;
+    border-radius: 8px;
+    background: linear-gradient(90deg, #6d55c9, #b49aff);
+    margin-top: -2px;
+    position: relative;
+    z-index: 2;
+}
+
+.tower-rod-container > p {
+    color: #b8a7ff;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-top: 12px;
+}
+
+.tower-disk {
+    position: relative;
+    z-index: 1;
+    flex-shrink: 0;
+    height: 19px;
+    min-width: 28px;
+    border-radius: 6px;
+    border: 1px solid rgba(255,255,255,.3);
+    background: linear-gradient(90deg, #6945d5, #a78bfa);
+    box-shadow: 0 2px 8px rgba(124,58,237,.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 10px;
+    font-weight: 700;
+    margin-top: 2px;
+    transition: width .3s ease, background .3s ease;
+}
+
+.tower-disk:nth-child(2n) {
+    background: linear-gradient(90deg, #2467bd, #60a5fa);
+}
+
+.tower-disk:nth-child(3n) {
+    background: linear-gradient(90deg, #087f83, #2dd4bf);
+}
+
+.tower-move-info {
+    text-align: center;
+    color: #aaa9c7;
+    font-size: 13px;
+    margin-top: 22px;
+    line-height: 1.6;
+}
+
+/* ==========================================
+   26. TOWER RESPONSIVE DESIGN
+========================================== */
+
+@media (max-width: 600px) {
+    .tower-view {
+        padding: 20px 5px;
+    }
+
+    .tower-rods {
+        gap: 8px;
+        padding: 15px 0;
+    }
+
+    .tower-rod-container {
+        height: 220px;
+    }
+
+    .tower-rod {
+        height: 175px;
+    }
+
+    .tower-base {
+        width: 100%;
+    }
+
+    .tower-stage-title {
+        font-size: 17px;
+    }
+
+    .tower-disk {
+        height: 16px;
+        font-size: 9px;
+    }
+}

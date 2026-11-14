@@ -8,22 +8,16 @@
 
     <title>AlgoVerse | Visualizer</title>
 
-    <!-- Existing homepage styles -->
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="home.css">
-
-    <!-- Visualization page styles -->
     <link rel="stylesheet" href="visualizer.css">
 </head>
 
 <body>
 
-    <!-- Particle Background -->
     <canvas id="particle-canvas"></canvas>
 
-    <!-- Navigation Bar -->
     <nav class="navbar">
-
         <div class="logo">
             Algo<span>Verse</span>
         </div>
@@ -33,100 +27,321 @@
             <a href="index.html#algorithms">Algorithms</a>
             <a href="login.html">Login</a>
         </div>
-
     </nav>
 
     <main class="visualizer-container">
 
-        <!-- Heading -->
         <section class="page-heading">
-
-            <p class="small-heading">ALGORITHM PLAYGROUND</p>
+            <p class="small-heading">✦ ALGORITHM PLAYGROUND ✦</p>
 
             <h1 id="algorithmTitle">
                 Bubble Sort <span>Visualizer</span>
             </h1>
 
             <p id="algorithmDescription">
-                Explore how Bubble Sort works through
+                Explore how the algorithm works through
                 step-by-step visualization.
             </p>
-
         </section>
 
-        <!-- Input Configuration -->
-        <section class="input-panel">
+        
+<section class="input-panel">
 
-            <h2>Input Configuration</h2>
+    <div class="section-label">
+        <span class="section-icon">⌘</span>
+        <h2>Input Configuration</h2>
+    </div>
 
-            <label for="arrayInput">Enter Array Elements</label>
+    <div id="arrayInputGroup">
+        <label for="arrayInput">Enter Array Elements</label>
 
+        <div class="input-row">
             <input
                 type="text"
                 id="arrayInput"
                 placeholder="Example: 5, 2, 8, 1, 4"
             >
+        </div>
 
-            <button id="visualizeBtn">
-                Visualize Algorithm
-            </button>
+        <p class="input-hint">
+            Enter integer values separated by commas.
+        </p>
+    </div>
 
-        </section>
+    <div id="targetInputGroup" hidden>
+        <label for="targetInput">Enter Target Element</label>
 
-        <!-- Visualization Area -->
-        <section class="visualization-panel">
+        <div class="input-row">
+            <input
+                type="number"
+                id="targetInput"
+                placeholder="Example: 8"
+            >
+        </div>
 
-            <div class="panel-heading">
+        <p class="input-hint">
+            Enter the element you want to search for.
+            Binary Search requires a sorted array.
+        </p>
+    </div>
 
-                <h2>Visualization</h2>
+    <div id="towerInputGroup" hidden>
+        <label for="diskInput">Enter Number of Disks</label>
 
-                <span id="status">Waiting to start...</span>
+        <div class="input-row">
+            <input
+                type="number"
+                id="diskInput"
+                min="1"
+                max="12"
+                value="3"
+                placeholder="Enter disks (1-12)"
+            >
+        </div>
+
+        <p class="input-hint">
+            Enter a number between 1 and 12.
+        </p>
+    </div>
+
+    <div class="input-row">
+        <button id="visualizeBtn">
+            <span>▶</span> Visualize
+        </button>
+    </div>
+
+</section>
+
+        <section class="workspace">
+
+            <div class="visualization-panel">
+
+                <div class="panel-heading">
+                    <div>
+                        <p class="panel-subtitle">LIVE EXECUTION</p>
+                        <h2>Array Visualization</h2>
+                    </div>
+
+                    <span id="status" class="status-badge">
+                        Waiting to start...
+                    </span>
+                </div>
+
+                <div class="visualization-grid">
+
+                    <!-- Normal visualization -->
+                    <div id="arrayContainer"></div>
+
+                    <!-- Merge Sort visualization -->
+                    <div id="mergeSortView" class="merge-sort-view" hidden>
+
+                        <div class="merge-current-array">
+                            <p class="merge-section-title">
+                                Current Array State
+                            </p>
+
+                            <div
+                                id="mergeCurrentValues"
+                                class="merge-values"
+                            ></div>
+                        </div>
+
+                        <h3
+                            id="mergeStageTitle"
+                            class="merge-stage-title"
+                        >
+                            Waiting for Merge Sort
+                        </h3>
+
+                        <div class="merge-parts-grid">
+
+                            <div class="merge-part-card left-card">
+                                <p class="merge-part-heading">Left Part</p>
+
+                                <div
+                                    id="mergeLeftValues"
+                                    class="merge-values"
+                                ></div>
+                            </div>
+
+                            <div class="merge-part-card right-card">
+                                <p class="merge-part-heading">Right Part</p>
+
+                                <div
+                                    id="mergeRightValues"
+                                    class="merge-values"
+                                ></div>
+                            </div>
+
+                            <div class="merge-part-card result-card">
+                                <p class="merge-part-heading">Merged Result</p>
+
+                                <div
+                                    id="mergeResultValues"
+                                    class="merge-values"
+                                ></div>
+                            </div>
+
+                        </div>
+
+                        <p
+                            id="mergeRangeInfo"
+                            class="merge-range-info"
+                        >
+                            The array will be divided into smaller parts.
+                        </p>
+
+                    </div>
+
+                        <!-- Tower of Hanoi Visualization -->
+                        <div id="towerView" class="tower-view" hidden>
+
+                            <h3 id="towerStageTitle" class="tower-stage-title">
+                                Tower of Hanoi
+                            </h3>
+
+                            <div class="tower-rods">
+
+                                <div class="tower-rod-container">
+                                    <div class="tower-rod" id="rodA"></div>
+                                    <div class="tower-base"></div>
+                                    <p>ROD A</p>
+                                </div>
+
+                                <div class="tower-rod-container">
+                                    <div class="tower-rod" id="rodB"></div>
+                                    <div class="tower-base"></div>
+                                    <p>ROD B</p>
+                                </div>
+
+                                <div class="tower-rod-container">
+                                    <div class="tower-rod" id="rodC"></div>
+                                    <div class="tower-base"></div>
+                                    <p>ROD C</p>
+                                </div>
+
+                            </div>
+
+                            <p id="towerMoveInfo" class="tower-move-info">
+                                Enter the number of disks and start visualization.
+                            </p>
+
+                        </div>
+                </div>
+
+                <div class="control-area">
+
+                    <div class="control-label">
+                        PLAYBACK CONTROLS
+                    </div>
+
+                    <div class="control-panel">
+
+                        <button
+                            id="previousBtn"
+                            class="control-btn"
+                            title="Previous Step"
+                            aria-label="Previous Step"
+                            disabled
+                        >⏮</button>
+
+                        <button
+                            id="playBtn"
+                            class="control-btn play-control"
+                            title="Play"
+                            aria-label="Play"
+                        >▶</button>
+
+                        <button
+                            id="nextBtn"
+                            class="control-btn"
+                            title="Next Step"
+                            aria-label="Next Step"
+                            disabled
+                        >⏭</button>
+
+                        <button
+                            id="resetBtn"
+                            class="control-btn reset-control"
+                            title="Reset"
+                            aria-label="Reset"
+                        >↻</button>
+
+                    </div>
+
+                </div>
 
             </div>
 
-            <div id="arrayContainer">
-                <!-- Bars will be created using JavaScript -->
-            </div>
+            <div class="step-panel">
 
-        </section>
+                <div class="step-heading">
 
-        <!-- Controls -->
-        <section class="control-panel">
+                    <div class="step-heading-icon">✧</div>
 
-            <button id="previousBtn">Previous</button>
+                    <div>
+                        <p class="panel-subtitle">
+                            UNDERSTANDING THE PROCESS
+                        </p>
 
-            <button id="playBtn">Play</button>
+                        <h2>Step Explanation</h2>
+                    </div>
 
-            <button id="nextBtn">Next</button>
+                </div>
 
-            <button id="resetBtn">Reset</button>
+                <div class="step-content">
 
-        </section>
+                    <div class="step-tag">
+                        CURRENT OPERATION
+                    </div>
 
-        <!-- Step Explanation -->
-        <section class="step-panel">
+                    <p id="stepMessage">
+                        Enter an array and click Visualize Algorithm
+                        to begin.
+                    </p>
 
-            <h2>Step Explanation</h2>
+                </div>
 
-            <p id="stepMessage">
-                Enter an array and click Visualize Algorithm
-                to begin.
-            </p>
+                <div class="step-footer">
 
-            <div class="step-counter">
-                Step: <span id="stepNumber">0</span>
+                    <div class="step-counter">
+                        <span>STEP</span>
+                        <strong id="stepNumber">0</strong>
+                    </div>
+
+                    <div class="step-progress">
+
+                        <div class="progress-track">
+                            <div
+                                class="progress-fill"
+                                id="progressFill"
+                            ></div>
+                        </div>
+
+                        <span id="progressText">
+                            0% COMPLETE
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <div class="info-note">
+                    <span>ⓘ</span>
+                    Follow each operation to understand how the
+                    algorithm transforms the array.
+                </div>
+
             </div>
 
         </section>
 
     </main>
 
-    <!-- Footer -->
     <footer>
         <p>© 2026 AlgoVerse | Explore. Learn. Visualize.</p>
     </footer>
 
-    <!-- JavaScript -->
     <script type="module" src="js/main.js"></script>
     <script src="js/visualizer.js"></script>
 
